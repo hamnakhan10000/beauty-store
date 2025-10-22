@@ -1,0 +1,28 @@
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+
+// Import route files (beauty-related routes)
+import beautyProductRoutes from "./routes/beautyProductRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+
+// Import database connection
+import "./db.js";
+
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+
+// API routes (beauty theme)
+app.use("/api/beauty-products", beautyProductRoutes); // 💄 All skincare/makeup products
+app.use("/api/users", userRoutes);                     // 👩‍💻 Signup / Login
+app.use("/api/cart", cartRoutes);                      // 🛒 Cart management
+app.use("/api/orders", orderRoutes);                   // 📦 Order checkout
+
+// Server start
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`💅 Beauty & Skincare Server running at http://localhost:${PORT}`));
